@@ -6,7 +6,6 @@ DCAT-AP.de RDF Harvester module.
 import time
 import json
 import logging
-import pylons
 
 from ckan import plugins as p
 from ckan import model
@@ -78,7 +77,7 @@ class DCATdeRDFHarvester(DCATRDFHarvester):
         DCATRDFHarvester.__init__(self)
 
         self.licenses_upgrade = {}
-        license_file = pylons.config.get('ckanext.dcatde.urls.dcat_licenses_upgrade_mapping')
+        license_file = toolkit.config.get('ckanext.dcatde.urls.dcat_licenses_upgrade_mapping')
         if license_file:
             self.licenses_upgrade = load_json_mapping(license_file, "DCAT License upgrade mapping", LOGGER)
         try:
@@ -106,7 +105,7 @@ class DCATdeRDFHarvester(DCATRDFHarvester):
         return False
 
     def _get_fallback_license(self):
-        fallback = pylons.config.get('ckanext.dcatde.harvest.default_license',
+        fallback = toolkit.config.get('ckanext.dcatde.harvest.default_license',
                                      'http://dcat-ap.de/def/licenses/other-closed')
         return fallback
 
@@ -276,7 +275,7 @@ class DCATdeRDFHarvester(DCATRDFHarvester):
             config_obj = json.loads(cfg)
             if CONFIG_PARAM_HARVESTED_PORTAL in config_obj:
                 harvested_portal = config_obj[CONFIG_PARAM_HARVESTED_PORTAL]
-                if not isinstance(harvested_portal, basestring):
+                if not isinstance(harvested_portal, str):
                     raise ValueError('%s must be a string' % CONFIG_PARAM_HARVESTED_PORTAL)
             else:
                 raise KeyError('%s is not set in config.' % CONFIG_PARAM_HARVESTED_PORTAL)

@@ -5,14 +5,13 @@ Paster command for adding DCAT themes (categories) to the CKAN instance.
 """
 import json
 import sys
-import urllib2
+import urllib.request as urllib2
 
 from ckan import model
 from ckan.lib.cli import CkanCommand
 from ckan.logic import NotFound
 import ckan.plugins.toolkit as tk
 import ckanapi
-import pylons.config
 
 
 class ThemeAdder(CkanCommand):
@@ -51,7 +50,7 @@ class ThemeAdder(CkanCommand):
             if cmd == 'omit-group-migration':
                 self.omit_group_migration = True
             else:
-                print 'Command %s not recognized' % cmd
+                print('Command %s not recognized' % cmd)
                 self.parser.print_usage()
                 sys.exit(1)
 
@@ -65,7 +64,7 @@ class ThemeAdder(CkanCommand):
             for group_key in present_groups_dict:
                 present_groups_keys.append(group_key)
 
-        groups_file = pylons.config.get('ckanext.dcatde.urls.themes')
+        groups_file = tk.config.get('ckanext.dcatde.urls.themes')
         try:
             groups_str = urllib2.urlopen(groups_file).read()
         except Exception:

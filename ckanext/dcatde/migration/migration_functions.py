@@ -7,6 +7,11 @@ import json
 import ckanext.dcatde.migration.util as util
 import ckanext.dcatde.dataset_utils as ds_utils
 
+try:
+    unicode
+except Exception:
+    unicode = str
+
 
 class MigrationFunctionExecutor(object):
     '''Use an instance of this class to easily apply all migration functions
@@ -132,7 +137,7 @@ class MigrationFunctions(object):
                     util.delete_group(dataset, group_name)
 
                     # transform single strings to lists with one argument
-                    if isinstance(themes, basestring):
+                    if isinstance(themes, str):
                         themes = [themes]
 
                     if themes is not None:

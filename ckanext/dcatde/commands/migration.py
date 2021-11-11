@@ -12,7 +12,6 @@ from ckan.logic import UnknownValidator
 import ckan.plugins.toolkit as tk
 from ckanext.dcatde.migration import migration_functions, util
 from ckanext.dcatde import dataset_utils
-import pylons
 from sqlalchemy import or_
 
 EXTRA_KEY_ADMS_IDENTIFIER = 'alternate_identifier'
@@ -74,7 +73,7 @@ class DCATdeMigrateCommand(tk.CkanCommand):
             elif cmd == 'adms-id-migrate':
                 self.migration_mode = self.MODE_ADMS_ID
             else:
-                print 'Command %s not recognized' % cmd
+                print('Command %s not recognized' % cmd)
                 self.parser.print_usage()
                 sys.exit(1)
 
@@ -83,8 +82,8 @@ class DCATdeMigrateCommand(tk.CkanCommand):
             self.migrate_adms_identifier()
         else:
             self.executor = migration_functions.MigrationFunctionExecutor(
-                pylons.config.get('ckanext.dcatde.urls.license_mapping'),
-                pylons.config.get('ckanext.dcatde.urls.category_mapping'))
+                tk.config.get('ckanext.dcatde.urls.license_mapping'),
+                tk.config.get('ckanext.dcatde.urls.category_mapping'))
             self.migrate_datasets()
 
     def migrate_datasets(self):

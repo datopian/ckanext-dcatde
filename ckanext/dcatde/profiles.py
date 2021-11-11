@@ -13,6 +13,11 @@ from ckanext.dcat.profiles import RDFProfile, CleanedURIRef, URIRefOrLiteral
 from ckanext.dcat.utils import resource_uri, DCAT_CLEAN_TAGS
 import ckanext.dcatde.dataset_utils as ds_utils
 
+try:
+    unicode
+except Exception:
+    unicode = str
+
 # copied from ckanext.dcat.profiles
 DCT = Namespace("http://purl.org/dc/terms/")
 DCAT = Namespace("http://www.w3.org/ns/dcat#")

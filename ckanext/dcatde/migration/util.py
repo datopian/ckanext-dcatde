@@ -4,9 +4,14 @@ Migration helper functions
 import json
 import logging
 import re
-import urllib2
+import urllib.request as urllib2
 import pycountry
 import ckanext.dcatde.dataset_utils as ds_utils
+
+try:
+    unicode
+except Exception:
+    unicode = str
 
 
 def log_dataset_prefix(dataset):
