@@ -285,7 +285,7 @@ class DCATdeProfile(RDFProfile):
         g = self.g
 
         # bind namespaces to have readable names in RDF Document
-        for prefix, namespace in namespaces.iteritems():
+        for prefix, namespace in namespaces.items():
             g.bind(prefix, namespace)
 
         # Simple additional fields
