@@ -3,7 +3,7 @@
 """SHACL validation utility"""
 
 import logging
-from urlparse import urljoin
+from urllib.parse import urljoin
 
 import pylons
 from rdflib.namespace import Namespace

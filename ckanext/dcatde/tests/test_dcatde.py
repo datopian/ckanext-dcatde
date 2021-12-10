@@ -122,8 +122,8 @@ class TestDCATde(unittest.TestCase):
             raise TypeError('values must be type of list')
         values_found = []
         for obj in self.graph.objects(ref, predicate):
-            if unicode(obj) in values:
-                values_found.append(unicode(obj))
+            if str(obj) in values:
+                values_found.append(str(obj))
 
         self.assertTrue(len(values_found) == len(values),
                         "Not all expected values were found in graph. remaining: {}".format(

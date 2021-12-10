@@ -74,7 +74,7 @@ class Triplestore(CkanCommand):
             self.triplestore_client = FusekiTriplestoreClient()
             self._clean_triplestore_from_uris()
         else:
-            print u'Command {0} not recognized'.format(cmd)
+            print(u'Command {0} not recognized'.format(cmd))
 
     def _check_options(self):
         '''Checks available options.'''
@@ -92,15 +92,15 @@ class Triplestore(CkanCommand):
         starttime = time.time()
         package_obj_to_reindex = gather_dataset_ids(include_private=False)
         endtime = time.time()
-        print "INFO: %s datasets found to reindex. Total time: %s." % \
-                (len(package_obj_to_reindex), str(endtime - starttime))
+        print("INFO: %s datasets found to reindex. Total time: %s." % \
+                (len(package_obj_to_reindex), str(endtime - starttime)))
 
         if self.dry_run:
-            print "INFO: DRY-RUN: The dataset reindex is disabled."
-            print "DEBUG: Package IDs:"
-            print package_obj_to_reindex.keys()
+            print("INFO: DRY-RUN: The dataset reindex is disabled.")
+            print("DEBUG: Package IDs:")
+            print(package_obj_to_reindex.keys())
         elif package_obj_to_reindex:
-            print 'INFO: Start updating triplestore...'
+            print('INFO: Start updating triplestore...')
             success_count = error_count = 0
             starttime = time.time()
             if self.triplestore_client.is_available():
@@ -110,25 +110,25 @@ class Triplestore(CkanCommand):
                         checkpoint_start = time.time()
                         uri = self._update_package_in_triplestore(package_id, package_org)
                         checkpoint_end = time.time()
-                        print "DEBUG: Reindexed dataset with id %s. Time taken for reindex: %s." % \
-                                 (package_id, str(checkpoint_end - checkpoint_start))
+                        print("DEBUG: Reindexed dataset with id %s. Time taken for reindex: %s." % \
+                                 (package_id, str(checkpoint_end - checkpoint_start)))
                         success_count += 1
                     except RDFParserException as ex:
-                        print u'ERROR: While parsing the RDF file: {0}'.format(ex)
+                        print(u'ERROR: While parsing the RDF file: {0}'.format(ex))
                         error_count += 1
                     except SPARQLWrapperException as ex:
-                        print u'ERROR: Unexpected error while updating dataset with URI %s: %s' % (uri, ex)
+                        print(u'ERROR: Unexpected error while updating dataset with URI %s: %s' % (uri, ex))
                         error_count += 1
                     except Exception as error:
-                        print u'ERROR: While reindexing dataset with id %s. Details: %s' % \
-                                (package_id, error.message)
+                        print(u'ERROR: While reindexing dataset with id %s. Details: %s' % \
+                                (package_id, error.message))
                         error_count += 1
             else:
-                print "INFO: TripleStore is not available. Skipping reindex!"
+                print("INFO: TripleStore is not available. Skipping reindex!")
             endtime = time.time()
-            print '============================================================='
-            print "INFO: %s datasets successfully reindexed. %s datasets couldn't reindexed. "\
-            "Total time: %s." % (success_count, error_count, str(endtime - starttime))
+            print('=============================================================')
+            print("INFO: %s datasets successfully reindexed. %s datasets couldn't reindexed. "\
+            "Total time: %s." % (success_count, error_count, str(endtime - starttime)))
 
     def _get_rdf(self, dataset_ref):
         '''Reads the RDF presentation of the dataset with the given ID.'''
@@ -159,19 +159,19 @@ class Triplestore(CkanCommand):
     def _clean_triplestore_from_uris(self):
         '''Delete dataset-uris from args from the triplestore'''
         if self.uris_to_clean == '':
-            print "INFO: Missing Arg 'uris'." \
-                "Use comma separated URI-values to specify which datasets should be deleted."
+            print("INFO: Missing Arg 'uris'." \
+                "Use comma separated URI-values to specify which datasets should be deleted.")
             return
         if self.dry_run:
-            print "INFO: DRY-RUN: Deleting datasets is disabled."
+            print("INFO: DRY-RUN: Deleting datasets is disabled.")
 
         if self.triplestore_client.is_available():
             starttime = time.time()
             for uri in self.uris_to_clean:
-                print "Deleting dataset with URI: " + uri
+                print("Deleting dataset with URI: " + uri)
                 if not self.dry_run:
                     self.triplestore_client.delete_dataset_in_triplestore(uri)
             endtime = time.time()
-            print "INFO: Total time: %s." % (str(endtime - starttime))
+            print("INFO: Total time: %s." % (str(endtime - starttime)))
         else:
-            print "INFO: TripleStore is not available. Skipping cleaning!"
+            print("INFO: TripleStore is not available. Skipping cleaning!")

@@ -171,7 +171,7 @@ class DCATdeProfile(RDFProfile):
         Ensures that the given value string has no tel: prefix.
         '''
         if value:
-            return unicode(value).replace(PREFIX_TEL, u'')
+            return str(value).replace(PREFIX_TEL, u'')
         else:
             return value
 
@@ -231,7 +231,7 @@ class DCATdeProfile(RDFProfile):
             for distribution in self.g.objects(dataset_ref, DCAT.distribution):
                 for resource_dict in dataset_dict.get('resources', []):
                     # Match distribution in graph and distribution in ckan-dict
-                    if unicode(distribution) == resource_dict.get('uri'):
+                    if str(distribution) == resource_dict.get('uri'):
                         for key, predicate in (
                                 ('licenseAttributionByText', dcatde_namespace.licenseAttributionByText),
                                 ('plannedAvailability', dcatde_namespace.plannedAvailability)
@@ -265,7 +265,7 @@ class DCATdeProfile(RDFProfile):
             groups = []
 
         for obj in self.g.objects(dataset_ref, DCAT.theme):
-            current_theme = unicode(obj)
+            current_theme = str(obj)
 
             if current_theme.startswith(dcat_theme_prefix):
                 group = current_theme.replace(dcat_theme_prefix, '').lower()
@@ -362,7 +362,7 @@ class DCATdeProfile(RDFProfile):
         for resource_dict in dataset_dict.get('resources', []):
             for distribution in g.objects(dataset_ref, DCAT.distribution):
                 # Match distribution in graph and distribution in ckan-dict
-                if unicode(distribution) == resource_uri(resource_dict):
+                if str(distribution) == resource_uri(resource_dict):
                     items = [
                         ('licenseAttributionByText', DCATDE.licenseAttributionByText, None, Literal),
                         ('plannedAvailability', DCATDE.plannedAvailability, None, URIRef)

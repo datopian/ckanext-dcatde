@@ -5,7 +5,7 @@ Paster command for adding DCAT themes (categories) to the CKAN instance.
 """
 import json
 import sys
-import urllib2
+import urllib.request as urllib2
 
 from ckan import model
 from ckan.lib.cli import CkanCommand
@@ -51,7 +51,7 @@ class ThemeAdder(CkanCommand):
             if cmd == 'omit-group-migration':
                 self.omit_group_migration = True
             else:
-                print 'Command %s not recognized' % cmd
+                print('Command %s not recognized' % cmd)
                 self.parser.print_usage()
                 sys.exit(1)
 

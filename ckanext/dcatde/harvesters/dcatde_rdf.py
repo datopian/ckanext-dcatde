@@ -28,7 +28,6 @@ from ckanext.dcatde.triplestore.sparql_query_templates import GET_DATASET_BY_URI
 from ckanext.dcatde.validation.shacl_validation import ShaclValidator
 from ckanext.harvest.model import HarvestObject, HarvestObjectExtra
 
-
 LOGGER = logging.getLogger(__name__)
 
 CONFIG_PARAM_HARVESTED_PORTAL = 'harvested_portal'
@@ -367,7 +366,7 @@ class DCATdeRDFHarvester(DCATRDFHarvester):
             config_obj = json.loads(cfg)
             if CONFIG_PARAM_HARVESTED_PORTAL in config_obj:
                 harvested_portal = config_obj[CONFIG_PARAM_HARVESTED_PORTAL]
-                if not isinstance(harvested_portal, basestring):
+                if not isinstance(harvested_portal, str):
                     raise ValueError('%s must be a string' % CONFIG_PARAM_HARVESTED_PORTAL)
             else:
                 raise KeyError('%s is not set in config.' % CONFIG_PARAM_HARVESTED_PORTAL)
