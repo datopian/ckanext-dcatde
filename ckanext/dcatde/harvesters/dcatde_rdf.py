@@ -7,7 +7,6 @@ import json
 import logging
 import time
 
-import pylons
 from SPARQLWrapper.SPARQLExceptions import SPARQLWrapperException
 from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import FOAF
@@ -145,7 +144,7 @@ class DCATdeRDFHarvester(DCATRDFHarvester):
         self.shacl_validator_client = ShaclValidator()
 
         self.licenses_upgrade = {}
-        license_file = pylons.config.get('ckanext.dcatde.urls.dcat_licenses_upgrade_mapping')
+        license_file = toolkit.config.get('ckanext.dcatde.urls.dcat_licenses_upgrade_mapping')
         if license_file:
             self.licenses_upgrade = load_json_mapping(license_file, "DCAT License upgrade mapping", LOGGER)
         try:
@@ -176,7 +175,7 @@ class DCATdeRDFHarvester(DCATRDFHarvester):
 
     @staticmethod
     def _get_fallback_license():
-        fallback = pylons.config.get('ckanext.dcatde.harvest.default_license',
+        fallback = toolkit.config.get('ckanext.dcatde.harvest.default_license',
                                      'http://dcat-ap.de/def/licenses/other-closed')
         return fallback
 

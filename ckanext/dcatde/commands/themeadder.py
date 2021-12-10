@@ -12,7 +12,6 @@ from ckan.lib.cli import CkanCommand
 from ckan.logic import NotFound
 import ckan.plugins.toolkit as tk
 import ckanapi
-import pylons.config
 
 
 class ThemeAdder(CkanCommand):
@@ -65,7 +64,7 @@ class ThemeAdder(CkanCommand):
             for group_key in present_groups_dict:
                 present_groups_keys.append(group_key)
 
-        groups_file = pylons.config.get('ckanext.dcatde.urls.themes')
+        groups_file = tk.config.get('ckanext.dcatde.urls.themes')
         try:
             groups_str = urllib2.urlopen(groups_file).read()
         except Exception:

@@ -8,7 +8,6 @@ import socket
 import sys
 import time
 
-import pylons
 from ckan.lib.base import model
 from ckan.logic import UnknownValidator, schema as schema_
 from ckan.plugins import toolkit as tk
@@ -100,8 +99,8 @@ class DCATdeMigrateCommand(tk.CkanCommand):
             self.migrate_contributor_identifier()
         else:
             self.executor = migration_functions.MigrationFunctionExecutor(
-                pylons.config.get('ckanext.dcatde.urls.license_mapping'),
-                pylons.config.get('ckanext.dcatde.urls.category_mapping'))
+                tk.config.get('ckanext.dcatde.urls.license_mapping'),
+                tk.config.get('ckanext.dcatde.urls.category_mapping'))
             self.migrate_datasets()
 
     def migrate_datasets(self):
