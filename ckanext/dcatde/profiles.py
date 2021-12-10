@@ -280,7 +280,7 @@ class DCATdeProfile(RDFProfile):
         g = self.g
 
         # bind namespaces to have readable names in RDF Document
-        for prefix, namespace in namespaces.iteritems():
+        for prefix, namespace in namespaces.items():
             g.bind(prefix, namespace)
 
         # Simple additional fields
@@ -379,4 +379,4 @@ def _munge_tag(tag):
     '''Cleans a given tag from special characters.'''
     tag = tag.lower().strip()
     tag = _munge_to_length(tag, model.MIN_TAG_LENGTH, model.MAX_TAG_LENGTH)
-    return re.sub(ur'[^a-zA-ZÄÖÜäöüß0-9 \-_\.]', '', tag).replace(' ', '-')
+    return re.sub('[^a-zA-Z0-9 \-_\.]', '', tag).replace(' ', '-')

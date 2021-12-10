@@ -148,7 +148,7 @@ class TestTripleStoreCommand(unittest.TestCase):
         mock_shacl_validate.side_effect = [d1['shacl_result'], d2['shacl_result']]
         package_ids_with_org = dict(d1=d1['org'], d2=d2['org'])
         # use sorted dict because of expected order
-        mock_gather_ids.return_value = OrderedDict(sorted(package_ids_with_org.iteritems(),
+        mock_gather_ids.return_value = OrderedDict(sorted(package_ids_with_org.items(),
                                                           key=lambda x: x[1]))
         self.cmd.options.dry_run = 'False'
         self.cmd.args = ['reindex']

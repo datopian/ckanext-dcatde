@@ -104,7 +104,7 @@ class Triplestore(CkanCommand):
             success_count = error_count = 0
             starttime = time.time()
             if self.triplestore_client.is_available():
-                for package_id, package_org in package_obj_to_reindex.iteritems():
+                for package_id, package_org in package_obj_to_reindex.items():
                     try:
                         # Reindex package
                         checkpoint_start = time.time()
