@@ -4,6 +4,8 @@ DCAT-AP.de specific CKAN extension for providing and importing DCAT-AP.de-Profil
 
 ## Dependencies
 
+> Requires CKAN 2.9 and above. May not work well with previous versions.
+
 The CKAN-Plugin ckanext-dcatde is based on the CKAN extension [ckanext-dcat](https://github.com/ckan/ckanext-dcat).
 
 For the RDF harvester, [ckanext-harvest](https://github.com/ckan/ckanext-harvest) is used (optional, see below).
