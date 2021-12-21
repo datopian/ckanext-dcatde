@@ -10,7 +10,7 @@ import time
 from SPARQLWrapper.SPARQLExceptions import SPARQLWrapperException
 from rdflib import Graph, Literal, URIRef
 from rdflib.namespace import FOAF
-from ckan import model
+from ckan.lib.base import model
 from ckan import plugins as p
 from ckan.logic import UnknownValidator
 from ckan.plugins import toolkit
@@ -26,6 +26,10 @@ from ckanext.dcatde.triplestore.sparql_query_templates import GET_DATASET_BY_URI
     GET_URIS_FROM_HARVEST_INFO_QUERY
 from ckanext.dcatde.validation.shacl_validation import ShaclValidator
 from ckanext.harvest.model import HarvestObject, HarvestObjectExtra
+from ckan.config.environment import load_environment
+from ckan.cli import load_config as _get_config
+
+load_environment(_get_config())
 
 LOGGER = logging.getLogger(__name__)
 
